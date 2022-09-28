@@ -1,8 +1,6 @@
 .POSIX:
 CC = cc
 
-LDLIBS = -lmangala
-
 PROG = mangala
 
 all: $(PROG)

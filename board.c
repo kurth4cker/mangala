@@ -1,21 +1,12 @@
 #include <ncurses.h>
 
-WINDOW *win;
+#include "board.h"
 
-void draw();
-
-int
-main()
+void
+initboard(WINDOW *win)
 {
-	int i, j;
+	int i;
 
-	initscr();
-	cbreak();
-	noecho();
-	curs_set(0);
-
-	refresh();
-	win = newwin(7, 25, 5, 10);
 	box(win, 0, 0);
 
 	for (i = 3; i < 24; i += 3) {
@@ -40,9 +31,4 @@ main()
 		mvwaddch(win, i, 3, ACS_LTEE);
 		mvwaddch(win, i, 21, ACS_RTEE);
 	}
-
-	wrefresh(win);
-	getch();
-
-	endwin();
 }

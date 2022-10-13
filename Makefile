@@ -2,18 +2,20 @@
 CC = cc
 LINK.c = $(CC) $(FLAGS) -o $@ $<
 
-FLAGS = -std=c99 $(CFLAGS) $(CPPFLAGS) $(LDFLAGS)
-BOARDLIBS = -ltinfo -lncurses
+LDLIBS = -ltinfo -lncurses
 
-PROG = mangala board
+PROG = mangala
+OBJ = mangala.o board.o
 
 all: $(PROG)
-board: board.c
-	$(LINK.c) $(BOARDLIBS) $(LDLIBS)
+$(PROG): $(OBJ)
+$(OBJ): board.h
 
 clean:
-	rm -f $(PROG)
+	rm -f $(PROG) $(OBJ)
 
-.SUFFIXES: .c
-.c:
-	$(LINK.c) $(LDLIBS)
+.SUFFIXES: .c .o
+.c.o:
+	$(CC) -std=c99 $(CFLAGS) $(CPPFLAGS) -c $<
+.o:
+	$(CC) $(LDFLAGS) $^ $(LDLIBS) -o $@

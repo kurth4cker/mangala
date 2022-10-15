@@ -3,6 +3,20 @@
 #include "board.h"
 
 void
+fillboard(WINDOW *win, int board[2][7])
+{
+	int i;
+
+	for (i = 0; i < 6; i++) {
+		mvwprintw(win, 5, 3 * i + 4, "%2d", board[0][i]);
+		mvwprintw(win, 1, 23 - (3 * i + 4), "%2d", board[1][i]);
+	}
+
+	mvwprintw(win, 3, 1, "%2d", board[1][6]);
+	mvwprintw(win, 3, 22, "%2d", board[0][6]);
+}
+
+void
 initboard(WINDOW *win)
 {
 	int i;

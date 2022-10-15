@@ -29,6 +29,9 @@ main()
 
 	initgame(&game);
 
+	fillboard(board, game.board);
+	wrefresh(board);
+
 	getch();
 	endwin();
 }

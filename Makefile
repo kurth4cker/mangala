@@ -1,6 +1,5 @@
 .POSIX:
 CC = cc
-LINK.c = $(CC) $(FLAGS) -o $@ $<
 
 LDLIBS = -ltinfo -lncurses
 

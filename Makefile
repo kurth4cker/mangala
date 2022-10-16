@@ -17,4 +17,4 @@ clean:
 .c.o:
 	$(CC) -std=c99 $(CFLAGS) $(CPPFLAGS) -c $<
 .o:
-	$(CC) $(LDFLAGS) $^ $(LDLIBS) -o $@
+	$(CC) $(LDFLAGS) -o $@ $^ $(LDLIBS)

@@ -24,11 +24,9 @@ main()
 
 	refresh();
         board = newwin(7, 25, 5, 5);
+
 	initboard(board);
-	wrefresh(board);
-
 	initgame(&game);
-
 	fillboard(board, game.board);
 	wrefresh(board);
 

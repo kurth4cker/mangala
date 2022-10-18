@@ -11,6 +11,7 @@ struct game {
 typedef struct game game_t;
 
 static void initgame(game_t *);
+static void initturn(game_t *, int);
 
 int
 main()
@@ -47,6 +48,8 @@ main()
 		}
 
 		/* here are some turn initing or playing actions */
+		initturn(&game, ch-1);
+
 		/* and then redrawing of board window */
 		fillboard(board, game.board);
 		wrefresh(board);
@@ -64,4 +67,12 @@ initgame(game_t *game)
 		game->board[1][i] = 4;
 	}
 	game->user = game->board[0];
+}
+
+static void
+initturn(game_t *game, int sel)
+{
+	game->iter = &game->user[sel];
+	game->nrock = *game->iter;
+	*game->iter = 0;
 }

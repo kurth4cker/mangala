@@ -12,6 +12,8 @@ typedef struct game game_t;
 
 static void initgame(game_t *);
 static void initturn(game_t *, int);
+static void iterate(game_t *);
+static void playturn(game_t *);
 
 int
 main()
@@ -49,6 +51,7 @@ main()
 
 		/* here are some turn initing or playing actions */
 		initturn(&game, ch-1);
+		playturn(&game);
 
 #ifdef DEBUG
 		mvwprintw(bottom, 1, 0, "selection: %d", ch);
@@ -81,4 +84,25 @@ initturn(game_t *game, int sel)
 	game->iter = &game->user[sel];
 	game->nrock = *game->iter;
 	*game->iter = 0;
+}
+
+static void
+iterate(game_t *game)
+{
+	if (game->iter == &game->board[0][6])
+		game->iter = game->board[1];
+	else if (game->iter == &game->board[1][6])
+		game->iter = game->board[0];
+	else
+		game->iter++;
+}
+
+static void
+playturn(game_t *game)
+{
+	while (game->nrock > 0) {
+		(*game->iter)++;
+		game->nrock--;
+		iterate(game);
+	}
 }

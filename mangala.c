@@ -50,6 +50,12 @@ main()
 		/* here are some turn initing or playing actions */
 		initturn(&game, ch-1);
 
+#ifdef DEBUG
+		mvwprintw(bottom, 1, 0, "selection: %d", ch);
+		mvwprintw(bottom, 2, 0, "nrock: %d", game.nrock);
+		wrefresh(bottom);
+#endif
+
 		/* and then redrawing of board window */
 		fillboard(board, game.board);
 		wrefresh(board);

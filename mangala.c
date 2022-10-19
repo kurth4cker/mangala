@@ -43,22 +43,35 @@ main()
 	mvwaddstr(bottom, 0, 0, "press a number between 1 and 6 to select a XXX");
 	wrefresh(bottom);
 	while ((ch = getch()) != 'q') {
-		ch -= 48;
-		if (ch < 1 || ch > 6) {
-			mvwaddstr(bottom, 1, 0, "invalid selection. try again");
-			wrefresh(bottom);
-			continue;
-		}
+		switch (ch) {
+		case 't':
+			change_user(&game);
+			break;
+		case '1':
+		case '2':
+		case '3':
+		case '4':
+		case '5':
+		case '6':
+			ch -= 48;
 
-		/* here are some turn initing or playing actions */
-		initturn(&game, ch-1);
-		playturn(&game);
+			/* here are some turn initing or playing actions */
+			initturn(&game, ch-1);
+			playturn(&game);
 
 #ifdef DEBUG
-		mvwprintw(bottom, 1, 0, "selection: %d", ch);
-		mvwprintw(bottom, 2, 0, "nrock: %d", game.nrock);
-		wrefresh(bottom);
+			mvwprintw(bottom, 1, 0, "selection: %d", ch);
+			wclrtoeol(bottom);
+			mvwprintw(bottom, 2, 0, "nrock: %d", game.nrock);
+			wclrtoeol(bottom);
+			wrefresh(bottom);
 #endif
+			break;
+		default:
+			mvwaddstr(bottom, 1, 0, "invalid selection. try again");
+			wrefresh(bottom);
+			break;
+		}
 
 		/* and then redrawing of board window */
 		fillboard(board, game.board);

@@ -84,6 +84,11 @@ initturn(game_t *game, int sel)
 	game->iter = &game->user[sel];
 	game->nrock = *game->iter;
 	*game->iter = 0;
+
+	if (game->nrock > 1) {
+		game->nrock--;
+		(*game->iter)++;
+	}
 }
 
 static void
@@ -101,8 +106,8 @@ static void
 playturn(game_t *game)
 {
 	while (game->nrock > 0) {
+		iterate(game);
 		(*game->iter)++;
 		game->nrock--;
-		iterate(game);
 	}
 }

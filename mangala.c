@@ -10,6 +10,7 @@ struct game {
 };
 typedef struct game game_t;
 
+static void change_user(game_t *);
 static void initgame(game_t *);
 static void initturn(game_t *, int);
 static void iterate(game_t *);
@@ -65,6 +66,15 @@ main()
 	}
 
 	endwin();
+}
+
+static void
+change_user(game_t *game)
+{
+	if (game->user == game->board[0])
+		game->user = game->board[1];
+	else
+		game->user = game->board[0];
 }
 
 static void

@@ -10,6 +10,7 @@ struct game {
 };
 typedef struct game game_t;
 
+static int getuser(game_t *);
 static void change_user(game_t *);
 static void initgame(game_t *);
 static void initturn(game_t *, int);
@@ -64,21 +65,27 @@ main()
 			wclrtoeol(bottom);
 			mvwprintw(bottom, 2, 0, "nrock: %d", game.nrock);
 			wclrtoeol(bottom);
-			wrefresh(bottom);
 #endif
 			break;
 		default:
 			mvwaddstr(bottom, 1, 0, "invalid selection. try again");
-			wrefresh(bottom);
 			break;
 		}
 
+		mvwprintw(bottom, 3, 0, "turn at user %d", getuser(&game));
 		/* and then redrawing of board window */
 		fillboard(board, game.board);
 		wrefresh(board);
+		wrefresh(bottom);
 	}
 
 	endwin();
+}
+
+static int
+getuser(game_t *game)
+{
+	return game->user == game->board[0] ? 0 : 1;
 }
 
 static void

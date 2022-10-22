@@ -24,72 +24,6 @@ static void initturn(game_t *, int);
 static void iterate(game_t *);
 static void playturn(game_t *);
 
-int
-main()
-{
-	WINDOW *board;
-	WINDOW *bottom;
-	game_t game;
-	int ch;
-	int maxx;
-
-	initscr();
-	noecho();
-	curs_set(0);
-
-	maxx = getmaxx(stdscr);
-
-	refresh();
-	board = newwin(7, 25, 5, 5);
-	bottom = newwin(4, maxx, 13, 3);
-
-	initboard(board);
-	initgame(&game);
-	fillboard(board, game.board);
-	wrefresh(board);
-
-	mvwaddstr(bottom, 0, 0, "press a number between 1 and 6 to select a XXX");
-	wrefresh(bottom);
-	while ((ch = getch()) != 'q') {
-		switch (ch) {
-		case 't':
-			change_user(&game);
-			break;
-		case '1':
-		case '2':
-		case '3':
-		case '4':
-		case '5':
-		case '6':
-			ch -= 48;
-
-			/* here are some turn initing or playing actions */
-			initturn(&game, ch-1);
-			playturn(&game);
-			endturn(&game);
-
-#ifdef DEBUG
-			mvwprintw(bottom, 1, 0, "selection: %d", ch);
-			wclrtoeol(bottom);
-			mvwprintw(bottom, 2, 0, "nrock: %d", game.nrock);
-			wclrtoeol(bottom);
-#endif
-			break;
-		default:
-			mvwaddstr(bottom, 1, 0, "invalid selection. try again");
-			break;
-		}
-
-		mvwprintw(bottom, 3, 0, "turn at user %d", getuser(&game));
-		/* and then redrawing of board window */
-		fillboard(board, game.board);
-		wrefresh(board);
-		wrefresh(bottom);
-	}
-
-	endwin();
-}
-
 static int
 getuser(game_t *game)
 {
@@ -183,4 +117,70 @@ playturn(game_t *game)
 		(*game->iter)++;
 		game->nrock--;
 	}
+}
+
+int
+main()
+{
+	WINDOW *board;
+	WINDOW *bottom;
+	game_t game;
+	int ch;
+	int maxx;
+
+	initscr();
+	noecho();
+	curs_set(0);
+
+	maxx = getmaxx(stdscr);
+
+	refresh();
+	board = newwin(7, 25, 5, 5);
+	bottom = newwin(4, maxx, 13, 3);
+
+	initboard(board);
+	initgame(&game);
+	fillboard(board, game.board);
+	wrefresh(board);
+
+	mvwaddstr(bottom, 0, 0, "press a number between 1 and 6 to select a XXX");
+	wrefresh(bottom);
+	while ((ch = getch()) != 'q') {
+		switch (ch) {
+		case 't':
+			change_user(&game);
+			break;
+		case '1':
+		case '2':
+		case '3':
+		case '4':
+		case '5':
+		case '6':
+			ch -= 48;
+
+			/* here are some turn initing or playing actions */
+			initturn(&game, ch-1);
+			playturn(&game);
+			endturn(&game);
+
+#ifdef DEBUG
+			mvwprintw(bottom, 1, 0, "selection: %d", ch);
+			wclrtoeol(bottom);
+			mvwprintw(bottom, 2, 0, "nrock: %d", game.nrock);
+			wclrtoeol(bottom);
+#endif
+			break;
+		default:
+			mvwaddstr(bottom, 1, 0, "invalid selection. try again");
+			break;
+		}
+
+		mvwprintw(bottom, 3, 0, "turn at user %d", getuser(&game));
+		/* and then redrawing of board window */
+		fillboard(board, game.board);
+		wrefresh(board);
+		wrefresh(bottom);
+	}
+
+	endwin();
 }

@@ -19,10 +19,6 @@
 
 #include "board.h"
 
-enum {
-	USER_AREA,
-	ENEMY_AREA,
-};
 struct game {
 	int board[2][7];
 	int nrock;
@@ -32,10 +28,7 @@ struct game {
 typedef struct game game_t;
 
 static int getuser(game_t *);
-static int location(game_t *);
-static int *getenemyarea(game_t *);
 static void change_user(game_t *);
-static void endturn(game_t *);
 static void initgame(game_t *);
 static void initturn(game_t *, int);
 static void iterate(game_t *);
@@ -47,21 +40,6 @@ getuser(game_t *game)
 	return game->user == game->board[0] ? 0 : 1;
 }
 
-static int *
-getenemyarea(game_t *game)
-{
-	return game->iter;
-}
-
-static int
-location(game_t *game)
-{
-	if (game->user < game->board[1])
-		return USER_AREA;
-	else
-		return ENEMY_AREA;
-}
-
 static void
 change_user(game_t *game)
 {
@@ -69,26 +47,6 @@ change_user(game_t *game)
 		game->user = game->board[1];
 	else
 		game->user = game->board[0];
-}
-
-static void
-endturn(game_t *game)
-{
-	int *enemyarea;
-	int loc = location(game);
-
-	if (loc == USER_AREA && *game->iter == 1) {
-		enemyarea = getenemyarea(game);
-		game->user[6] += *enemyarea;
-		*enemyarea = 0;
-		game->user[6]++;
-		*game->iter = 0;
-	} else if (loc == ENEMY_AREA && *game->iter % 2 == 0) {
-		game->user[6] += *game->iter;
-		*game->iter = 0;
-	}
-
-	change_user(game);
 }
 
 static void
@@ -178,7 +136,6 @@ main()
 			/* here are some turn initing or playing actions */
 			initturn(&game, ch-1);
 			playturn(&game);
-			endturn(&game);
 
 #ifdef DEBUG
 			mvwprintw(bottom, 1, 0, "selection: %d", ch);

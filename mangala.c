@@ -15,8 +15,6 @@
  * limitations under the License.
 */
 
-#include <stdio.h>
-
 #include "board.h"
 
 struct game {
@@ -120,6 +118,7 @@ main()
 
 	mvwaddstr(bottom, 0, 0, "press a number between 1 and 6 to select a XXX");
 	wrefresh(bottom);
+
 	while ((ch = getch()) != 'q') {
 		switch (ch) {
 		case 't':
@@ -136,13 +135,6 @@ main()
 			/* here are some turn initing or playing actions */
 			initturn(&game, ch-1);
 			playturn(&game);
-
-#ifdef DEBUG
-			mvwprintw(bottom, 1, 0, "selection: %d", ch);
-			wclrtoeol(bottom);
-			mvwprintw(bottom, 2, 0, "nrock: %d", game.nrock);
-			wclrtoeol(bottom);
-#endif
 			break;
 		default:
 			mvwaddstr(bottom, 1, 0, "invalid selection. try again");

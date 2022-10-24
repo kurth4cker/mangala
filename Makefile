@@ -1,7 +1,7 @@
 .POSIX:
 CC = cc
 
-LDLIBS = -ltinfo -lncurses
+LDLIBS = -ltinfo -lncurses -lmangala
 
 PROG = mangala
 OBJ = mangala.o board.o

@@ -24,7 +24,6 @@ typedef struct mgl_game game_t;
 
 static int getuser(game_t *);
 static void change_user(game_t *);
-static void initgame(game_t *);
 static void initturn(game_t *, int);
 static void iterate(game_t *);
 static void playturn(game_t *);
@@ -42,19 +41,6 @@ change_user(game_t *game)
 		game->user = game->board[1];
 	else
 		game->user = game->board[0];
-}
-
-static void
-initgame(game_t *game)
-{
-	int i;
-	game->board[0][6] = 0;
-	game->board[1][6] = 0;
-	for (i = 0; i < 6; i++) {
-		game->board[0][i] = 4;
-		game->board[1][i] = 4;
-	}
-	game->user = game->board[0];
 }
 
 static void
@@ -111,7 +97,7 @@ main()
 	bottom = newwin(4, maxx, 13, 3);
 
 	initboard(board);
-	initgame(&game);
+	mgl_initgame(&game);
 	fillboard(board, game.board);
 	wrefresh(board);
 

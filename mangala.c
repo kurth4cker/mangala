@@ -15,6 +15,7 @@
  * limitations under the License.
 */
 
+#include <ncurses.h>
 #include <mangala.h>
 
 #include "board.h"

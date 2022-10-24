@@ -15,15 +15,11 @@
  * limitations under the License.
 */
 
+#include <mangala.h>
+
 #include "board.h"
 
-struct game {
-	int board[2][7];
-	int nrock;
-	int *iter;
-	int *user;
-};
-typedef struct game game_t;
+typedef struct mgl_game game_t;
 
 static int getuser(game_t *);
 static void change_user(game_t *);

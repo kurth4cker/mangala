@@ -20,7 +20,7 @@
 #include "board.h"
 
 void
-fillboard(WINDOW *win, int board[2][7])
+fillboard(WINDOW *win, uint8_t board[2][7])
 {
 	int i;
 

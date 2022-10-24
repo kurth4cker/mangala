@@ -51,6 +51,8 @@ static void
 initgame(game_t *game)
 {
 	int i;
+	game->board[0][6] = 0;
+	game->board[1][6] = 0;
 	for (i = 0; i < 6; i++) {
 		game->board[0][i] = 4;
 		game->board[1][i] = 4;

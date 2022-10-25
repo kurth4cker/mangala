@@ -24,7 +24,6 @@ typedef struct mgl_game game_t;
 
 static int getuser(game_t *);
 static void change_user(game_t *);
-static void initturn(game_t *, int);
 static void iterate(game_t *);
 static void playturn(game_t *);
 
@@ -41,19 +40,6 @@ change_user(game_t *game)
 		game->user = game->board[1];
 	else
 		game->user = game->board[0];
-}
-
-static void
-initturn(game_t *game, int sel)
-{
-	game->iter = &game->user[sel];
-	game->nrock = *game->iter;
-	*game->iter = 0;
-
-	if (game->nrock > 1) {
-		game->nrock--;
-		(*game->iter)++;
-	}
 }
 
 static void
@@ -118,7 +104,7 @@ main()
 			ch -= 48;
 
 			/* here are some turn initing or playing actions */
-			initturn(&game, ch-1);
+			mgl_initturn(&game, ch-1);
 			playturn(&game);
 			break;
 		default:

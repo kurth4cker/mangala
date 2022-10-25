@@ -24,8 +24,6 @@ typedef struct mgl_game game_t;
 
 static int getuser(game_t *);
 static void change_user(game_t *);
-static void iterate(game_t *);
-static void playturn(game_t *);
 
 static int
 getuser(game_t *game)
@@ -40,27 +38,6 @@ change_user(game_t *game)
 		game->user = game->board[1];
 	else
 		game->user = game->board[0];
-}
-
-static void
-iterate(game_t *game)
-{
-	if (game->iter == &game->board[0][6])
-		game->iter = game->board[1];
-	else if (game->iter == &game->board[1][6])
-		game->iter = game->board[0];
-	else
-		game->iter++;
-}
-
-static void
-playturn(game_t *game)
-{
-	while (game->nrock > 0) {
-		iterate(game);
-		(*game->iter)++;
-		game->nrock--;
-	}
 }
 
 int
@@ -105,7 +82,7 @@ main()
 
 			/* here are some turn initing or playing actions */
 			mgl_initturn(&game, ch-1);
-			playturn(&game);
+			mgl_playturn(&game);
 			break;
 		default:
 			mvwaddstr(bottom, 1, 0, "invalid selection. try again");

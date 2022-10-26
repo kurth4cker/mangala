@@ -22,24 +22,6 @@
 
 typedef struct mgl_game game_t;
 
-static int getuser(game_t *);
-static void change_user(game_t *);
-
-static int
-getuser(game_t *game)
-{
-	return game->user == game->board[0] ? 0 : 1;
-}
-
-static void
-change_user(game_t *game)
-{
-	if (game->user == game->board[0])
-		game->user = game->board[1];
-	else
-		game->user = game->board[0];
-}
-
 int
 main()
 {
@@ -70,7 +52,7 @@ main()
 	while ((ch = getch()) != 'q') {
 		switch (ch) {
 		case 't':
-			change_user(&game);
+			_mgl_change_user(&game);
 			break;
 		case '1':
 		case '2':
@@ -89,7 +71,7 @@ main()
 			break;
 		}
 
-		mvwprintw(bottom, 3, 0, "turn at user %d", getuser(&game));
+		mvwprintw(bottom, 3, 0, "turn at user %d", _mgl_getuser(&game));
 		/* and then redrawing of board window */
 		fillboard(board, game.board);
 		wrefresh(board);

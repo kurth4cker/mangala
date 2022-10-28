@@ -65,6 +65,7 @@ main()
 			/* here are some turn initing or playing actions */
 			mgl_initturn(&game, ch-1);
 			mgl_playturn(&game);
+			mgl_endturn(&game);
 			break;
 		default:
 			mvwaddstr(bottom, 1, 0, "invalid selection. try again");

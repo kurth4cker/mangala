@@ -46,14 +46,11 @@ main()
 	fillboard(board, game.board);
 	wrefresh(board);
 
-	mvwaddstr(bottom, 0, 0, "press a number between 1 and 6 to select a XXX");
+	mvwaddstr(bottom, 0, 0, "press a number between 1 and 6");
 	wrefresh(bottom);
 
 	while ((ch = getch()) != 'q') {
 		switch (ch) {
-		case 't':
-			_mgl_change_user(&game);
-			break;
 		case '1':
 		case '2':
 		case '3':
@@ -72,7 +69,7 @@ main()
 			break;
 		}
 
-		mvwprintw(bottom, 3, 0, "turn at user %d", _mgl_getuser(&game));
+		mvwprintw(bottom, 3, 0, "turn at user %d", mgl_getuser(&game));
 		/* and then redrawing of board window */
 		fillboard(board, game.board);
 		wrefresh(board);

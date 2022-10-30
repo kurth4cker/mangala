@@ -16,8 +16,20 @@
 */
 
 #include <ncurses.h>
+#include <mangala.h>
 
 #include "board.h"
+
+void
+endofgame(mgl_game_t *game, WINDOW *win)
+{
+	uint8_t winner = game->board[0][6] > game->board[1][6] ? 0 : 1;
+
+	mvwaddstr(win, 0, 0, "GAME OVER");
+	wclrtoeol(win);
+	mvwprintw(win, 1, 0, "WINNER: %d", winner);
+	wclrtoeol(win);
+}
 
 void
 fillboard(WINDOW *win, uint8_t board[2][7])

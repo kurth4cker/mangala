@@ -64,6 +64,8 @@ main()
 				goto warn;
 			mgl_playturn(&game);
 			mgl_endturn(&game);
+			if (mgl_endgame(&game) == MGL_GAME_END)
+				endofgame(&game, bottom);
 			break;
 		default:
 		warn:

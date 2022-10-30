@@ -60,11 +60,13 @@ main()
 			ch -= 48;
 
 			/* here are some turn initing or playing actions */
-			mgl_initturn(&game, ch-1);
+			if (mgl_initturn(&game, ch-1) == MGL_ERR)
+				goto warn;
 			mgl_playturn(&game);
 			mgl_endturn(&game);
 			break;
 		default:
+		warn:
 			mvwaddstr(bottom, 1, 0, "invalid selection. try again");
 			break;
 		}

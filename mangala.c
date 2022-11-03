@@ -43,7 +43,7 @@ main()
 
 	initboard(board);
 	mgl_initgame(&game);
-	fillboard(board, game.board);
+	fillboard(board, game.board[1], game.board[0]);
 	wrefresh(board);
 
 	mvwaddstr(bottom, 0, 0, "press a number between 1 and 6");
@@ -75,7 +75,7 @@ main()
 
 		mvwprintw(bottom, 3, 0, "turn at user %d", mgl_getuser(&game));
 		/* and then redrawing of board window */
-		fillboard(board, game.board);
+		fillboard(board, game.board[1], game.board[0]);
 		wrefresh(board);
 		wrefresh(bottom);
 	}

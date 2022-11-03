@@ -32,17 +32,17 @@ endofgame(mgl_game_t *game, WINDOW *win)
 }
 
 void
-fillboard(WINDOW *win, uint8_t board[2][7])
+fillboard(WINDOW *win, uint8_t up[7], uint8_t bottom[7])
 {
 	int i;
 
 	for (i = 0; i < 6; i++) {
-		mvwprintw(win, 5, 3 * i + 4, "%2d", board[0][i]);
-		mvwprintw(win, 1, 23 - (3 * i + 4), "%2d", board[1][i]);
+		mvwprintw(win, 5, 3 * i + 4, "%2d", bottom[i]);
+		mvwprintw(win, 1, 23 - (3 * i + 4), "%2d", up[i]);
 	}
 
-	mvwprintw(win, 3, 1, "%2d", board[1][6]);
-	mvwprintw(win, 3, 22, "%2d", board[0][6]);
+	mvwprintw(win, 3, 1, "%2d", up[6]);
+	mvwprintw(win, 3, 22, "%2d", bottom[6]);
 }
 
 void

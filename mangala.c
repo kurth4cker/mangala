@@ -20,12 +20,15 @@
 
 #include "board.h"
 
+#define BX 25
+#define BY 7
+
 typedef struct mgl_game game_t;
 
 int
 main()
 {
-	WINDOW *board;
+	WINDOW *lboard, *rboard;
 	WINDOW *bottom;
 	game_t game;
 	int ch;
@@ -38,13 +41,17 @@ main()
 	maxx = getmaxx(stdscr);
 
 	refresh();
-	board = newwin(7, 25, 5, 5);
+	lboard = newwin(BY, BX, 5, 5);
+	rboard = newwin(BY, BX, 5, 35);
 	bottom = newwin(4, maxx, 13, 3);
 
-	initboard(board);
+	initboard(lboard);
+	initboard(rboard);
 	mgl_initgame(&game);
-	fillboard(board, game.board[1], game.board[0]);
-	wrefresh(board);
+	fillboard(lboard, game.board[1], game.board[0]);
+	fillboard(rboard, game.board[0], game.board[1]);
+	wrefresh(lboard);
+	wrefresh(rboard);
 
 	mvwaddstr(bottom, 0, 0, "press a number between 1 and 6");
 	wrefresh(bottom);
@@ -75,8 +82,10 @@ main()
 
 		mvwprintw(bottom, 3, 0, "turn at user %d", mgl_getuser(&game));
 		/* and then redrawing of board window */
-		fillboard(board, game.board[1], game.board[0]);
-		wrefresh(board);
+		fillboard(lboard, game.board[1], game.board[0]);
+		fillboard(rboard, game.board[0], game.board[1]);
+		wrefresh(lboard);
+		wrefresh(rboard);
 		wrefresh(bottom);
 	}
 

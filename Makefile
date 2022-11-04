@@ -5,7 +5,12 @@ VERSION = 0.1
 
 CC = cc
 
-LDLIBS = -ltinfo -lncurses -lmangala
+MANGALA_LIBS = -lmangala
+NCURSES_LIBS = -lncurses -ltinfo
+
+MGL_CFLAGS = -std=c99 $(CFLAGS) $(CPPFLAGS) $(MANGALA_CFLAGS) $(NCURSES_CFLAGS)
+MGL_LDFLAGS = $(LDFLAGS) $(MANGALA_LDFLAGS) $(NCURSES_LDFLAGS)
+MGL_LIBS = $(LDLIBS) $(MANGALA_LIBS) $(NCURSES_LIBS)
 
 PROG = mangala
 OBJ = mangala.o board.o
@@ -28,6 +33,6 @@ dist:
 
 .SUFFIXES: .c .o
 .c.o:
-	$(CC) -std=c99 $(CFLAGS) $(CPPFLAGS) -c $<
+	$(CC) $(MGL_CFLAGS) -c $<
 .o:
-	$(CC) $(LDFLAGS) -o $@ $^ $(LDLIBS)
+	$(CC) $(MGL_LDFLAGS) -o $@ $^ $(MGL_LIBS)

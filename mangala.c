@@ -23,17 +23,16 @@
 #define BX 25
 #define BY 7
 
-typedef struct mgl_game game_t;
-
 int
 main()
 {
 	WINDOW *lboard, *rboard;
 	WINDOW *bottom;
-	game_t game;
+	mgl_game_t game;
 	int ch;
 	int maxx;
 
+	mgl_initgame(&game);
 	initscr();
 	noecho();
 	curs_set(0);
@@ -47,7 +46,6 @@ main()
 
 	initboard(lboard);
 	initboard(rboard);
-	mgl_initgame(&game);
 	fillboard(lboard, game.board[1], game.board[0]);
 	fillboard(rboard, game.board[0], game.board[1]);
 	wrefresh(lboard);
@@ -80,7 +78,7 @@ main()
 			break;
 		}
 
-		mvwprintw(bottom, 3, 0, "turn at user %d", mgl_getuser(&game));
+		mvwprintw(bottom, 3, 0, "turn at user %d", game.user == game.board[1]);
 		/* and then redrawing of board window */
 		fillboard(lboard, game.board[1], game.board[0]);
 		fillboard(rboard, game.board[0], game.board[1]);

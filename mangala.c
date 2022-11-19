@@ -64,11 +64,8 @@ main()
 		case '6':
 			ch -= 48;
 
-			/* here are some turn initing or playing actions */
-			if (mgl_initturn(&game, ch-1) == MGL_ERR)
+			if (mgl_playturn(&game, ch-1) == MGL_ERR)
 				goto warn;
-			mgl_playturn(&game);
-			mgl_endturn(&game);
 			if (mgl_endgame(&game) == MGL_GAME_END)
 				endofgame(&game, bottom);
 			break;

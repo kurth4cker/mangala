@@ -21,9 +21,9 @@
 #include "board.h"
 
 void
-endofgame(mgl_game_t *game, WINDOW *win)
+endofgame(struct mgl_game *game, WINDOW *win)
 {
-	uint8_t winner = game->board[0][6] > game->board[1][6] ? 0 : 1;
+	uint_fast8_t winner = game->board[0][6] > game->board[1][6] ? 0 : 1;
 
 	mvwaddstr(win, 0, 0, "GAME OVER");
 	wclrtoeol(win);
@@ -32,7 +32,7 @@ endofgame(mgl_game_t *game, WINDOW *win)
 }
 
 void
-fillboard(WINDOW *win, uint8_t up[7], uint8_t bottom[7])
+fillboard(WINDOW *win, uint_fast8_t up[7], uint_fast8_t bottom[7])
 {
 	int i;
 

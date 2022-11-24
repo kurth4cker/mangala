@@ -28,7 +28,7 @@ main()
 {
 	WINDOW *lboard, *rboard;
 	WINDOW *bottom;
-	mgl_game_t game;
+	struct mgl_game game;
 	int ch;
 	int maxx;
 

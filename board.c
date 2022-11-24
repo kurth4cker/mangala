@@ -68,8 +68,9 @@ initboard(WINDOW *win)
 		waddch(win, ACS_HLINE);
 	}
 
-	for (i = 3; i < 24; i += 18)
-		mvwaddch(win, 3, i, ACS_VLINE);
+	mvwaddch(win, 3, 3, ACS_VLINE);
+	mvwaddch(win, 3, 21, ACS_VLINE);
+
 	for (i = 2; i < 6; i += 2) {
 		mvwaddch(win, i, 3, ACS_LTEE);
 		mvwaddch(win, i, 21, ACS_RTEE);

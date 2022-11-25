@@ -21,13 +21,13 @@
 #include "board.h"
 
 void
-endofgame(struct mgl_game *game, WINDOW *win)
+endofgame(struct mgl_game *game, WINDOW *win, const char *user, const char *enemy)
 {
-	uint_fast8_t winner = game->board[0][6] > game->board[1][6] ? 0 : 1;
+	const char *winner = game->board[0][6] > game->board[1][6] ? user : enemy;
 
 	mvwaddstr(win, 0, 0, "GAME OVER");
 	wclrtoeol(win);
-	mvwprintw(win, 1, 0, "WINNER: %d", winner);
+	mvwprintw(win, 1, 0, "WINNER: %s", winner);
 	wclrtoeol(win);
 }
 

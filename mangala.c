@@ -15,6 +15,7 @@
  * limitations under the License.
 */
 
+#include <stdlib.h>
 #include <ncurses.h>
 #include <mangala.h>
 
@@ -24,8 +25,10 @@
 #define BY 7
 
 int
-main()
+main(void)
 {
+	const char *user = getenv("USER");
+	const char *enemy = "ENEMY";
 	WINDOW *lboard, *rboard;
 	WINDOW *bottom;
 	struct mgl_game game;
@@ -67,7 +70,10 @@ main()
 			if (mgl_playturn(&game, ch-1) == MGL_ERR)
 				goto warn;
 			if (mgl_endgame(&game) == MGL_GAME_END)
-				endofgame(&game, bottom);
+				endofgame(&game, bottom, user, enemy);
+
+			wmove(bottom, 1, 0);
+			wclrtoeol(bottom);
 			break;
 		default:
 		warn:
@@ -75,7 +81,8 @@ main()
 			break;
 		}
 
-		mvwprintw(bottom, 3, 0, "turn at user %d", game.user == game.board[1]);
+		mvwprintw(bottom, 3, 0, "turn at user %s", game.user == game.board[0] ? user : enemy);
+		wclrtoeol(bottom);
 		/* and then redrawing of board window */
 		fillboard(lboard, game.board[1], game.board[0]);
 		fillboard(rboard, game.board[0], game.board[1]);

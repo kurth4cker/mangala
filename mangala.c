@@ -24,8 +24,7 @@
 #define BX 25
 #define BY 7
 
-int
-main(void)
+int main(void)
 {
 	const char *user = getenv("USER");
 	const char *enemy = "ENEMY";
@@ -83,6 +82,7 @@ main(void)
 
 		mvwprintw(bottom, 3, 0, "turn at user %s", game.user == game.board[0] ? user : enemy);
 		wclrtoeol(bottom);
+
 		/* and then redrawing of board window */
 		fillboard(lboard, game.board[1], game.board[0]);
 		fillboard(rboard, game.board[0], game.board[1]);

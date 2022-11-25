@@ -8,7 +8,7 @@
 void endofgame(struct mgl_game *, WINDOW *, const char *, const char *);
 
 /* fill the WINDOW with given numbers */
-void fillboard(WINDOW *, uint_fast8_t[7], uint_fast8_t[7]);
+void fillboard(WINDOW *, int[7], int[7]);
 
 /* initialize the board
  * draws the board windows internal borders */

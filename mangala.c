@@ -80,7 +80,7 @@ int main(void)
 			break;
 		}
 
-		mvwprintw(bottom, 3, 0, "turn at user %s", game.user == game.board[0] ? user : enemy);
+		mvwprintw(bottom, 3, 0, "turn at user %s", game.user == 0 ? user : enemy);
 		wclrtoeol(bottom);
 
 		/* and then redrawing of board window */

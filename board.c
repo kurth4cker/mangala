@@ -32,7 +32,7 @@ endofgame(struct mgl_game *game, WINDOW *win, const char *user, const char *enem
 }
 
 void
-fillboard(WINDOW *win, int up[7], int bottom[7])
+fillboard(WINDOW *win, int *up, int *bottom)
 {
 	int i;
 

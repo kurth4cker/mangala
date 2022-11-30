@@ -42,17 +42,18 @@ int main(void)
 	maxx = getmaxx(stdscr);
 
 	refresh();
-	lboard = newwin(BY, BX, 5, 5);
-	rboard = newwin(BY, BX, 5, 35);
-	bottom = newwin(4, maxx, 13, 3);
 
+	lboard = newwin(BY, BX, 5, 5);
 	initboard(lboard);
-	initboard(rboard);
 	fillboard(lboard, game.board[1], game.board[0]);
-	fillboard(rboard, game.board[0], game.board[1]);
 	wrefresh(lboard);
+
+	rboard = newwin(BY, BX, 5, 35);
+	initboard(rboard);
+	fillboard(rboard, game.board[0], game.board[1]);
 	wrefresh(rboard);
 
+	bottom = newwin(4, maxx, 13, 3);
 	mvwaddstr(bottom, 0, 0, "press a number between 1 and 6");
 	wrefresh(bottom);
 
@@ -80,7 +81,7 @@ int main(void)
 			break;
 		}
 
-		mvwprintw(bottom, 3, 0, "turn at user %s", game.user == 0 ? user : enemy);
+		mvwprintw(bottom, 3, 0, "turn at %s", game.user == 0 ? user : enemy);
 		wclrtoeol(bottom);
 
 		/* and then redrawing of board window */

@@ -28,13 +28,13 @@ int main(void)
 {
 	const char *user = getenv("USER");
 	const char *enemy = "ENEMY";
+	struct mgl_game *game = (struct mgl_game *)malloc(sizeof(struct mgl_game));
 	WINDOW *lboard, *rboard;
 	WINDOW *bottom;
-	struct mgl_game game;
 	int ch;
 	int maxx;
 
-	mgl_initgame(&game);
+	mgl_initgame(game);
 	initscr();
 	noecho();
 	curs_set(0);
@@ -45,12 +45,12 @@ int main(void)
 
 	lboard = newwin(BY, BX, 5, 5);
 	initboard(lboard);
-	fillboard(lboard, game.board[1], game.board[0]);
+	fillboard(lboard, game->board[1], game->board[0]);
 	wrefresh(lboard);
 
 	rboard = newwin(BY, BX, 5, 35);
 	initboard(rboard);
-	fillboard(rboard, game.board[0], game.board[1]);
+	fillboard(rboard, game->board[0], game->board[1]);
 	wrefresh(rboard);
 
 	bottom = newwin(4, maxx, 13, 3);
@@ -65,12 +65,12 @@ int main(void)
 		case '4':
 		case '5':
 		case '6':
-			ch -= 48;
+			ch -= '0';
 
-			if (mgl_playturn(&game, ch-1) == MGL_ERR)
+			if (mgl_playturn(game, ch-1) == MGL_ERR)
 				goto warn;
-			if (mgl_endgame(&game) == MGL_GAME_END)
-				endofgame(&game, bottom, user, enemy);
+			if (mgl_endgame(game) == MGL_GAME_END)
+				endofgame(game, bottom, user, enemy);
 
 			wmove(bottom, 1, 0);
 			wclrtoeol(bottom);
@@ -81,16 +81,17 @@ int main(void)
 			break;
 		}
 
-		mvwprintw(bottom, 3, 0, "turn at %s", game.user == 0 ? user : enemy);
+		mvwprintw(bottom, 3, 0, "turn at %s", game->user == 0 ? user : enemy);
 		wclrtoeol(bottom);
 
 		/* and then redrawing of board window */
-		fillboard(lboard, game.board[1], game.board[0]);
-		fillboard(rboard, game.board[0], game.board[1]);
+		fillboard(lboard, game->board[1], game->board[0]);
+		fillboard(rboard, game->board[0], game->board[1]);
 		wrefresh(lboard);
 		wrefresh(rboard);
 		wrefresh(bottom);
 	}
 
 	endwin();
+	free(game);
 }

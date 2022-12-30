@@ -13,7 +13,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 
 #include <stdlib.h>
 #include <ncurses.h>
@@ -67,8 +67,7 @@ int main(void)
 		case '6':
 			ch -= '0';
 
-			if (mgl_playturn(game, ch-1) == MGL_ERR)
-				goto warn;
+			mgl_playturn(game, ch-1);
 			if (mgl_endgame(game) == MGL_GAME_END)
 				endofgame(game, bottom, user, enemy);
 
@@ -76,7 +75,6 @@ int main(void)
 			wclrtoeol(bottom);
 			break;
 		default:
-		warn:
 			mvwaddstr(bottom, 1, 0, "invalid selection. try again");
 			break;
 		}

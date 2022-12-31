@@ -29,8 +29,8 @@ int main(void)
 	const char *user = getenv("USER");
 	const char *enemy = "ENEMY";
 	struct mgl_game *game = (struct mgl_game *)malloc(sizeof(struct mgl_game));
-	WINDOW *lboard, *rboard;
-	WINDOW *bottom;
+	WINDOW *board;
+	WINDOW *msgbox;
 	int ch;
 	int maxx;
 
@@ -43,19 +43,14 @@ int main(void)
 
 	refresh();
 
-	lboard = newwin(BY, BX, 5, 5);
-	initboard(lboard);
-	fillboard(lboard, game->board[1], game->board[0]);
-	wrefresh(lboard);
+	board = newwin(BY, BX, 0, 0);
+	initboard(board);
+	fillboard(board, game->board[1], game->board[0]);
+	wrefresh(board);
 
-	rboard = newwin(BY, BX, 5, 35);
-	initboard(rboard);
-	fillboard(rboard, game->board[0], game->board[1]);
-	wrefresh(rboard);
-
-	bottom = newwin(4, maxx, 13, 3);
-	mvwaddstr(bottom, 0, 0, "press a number between 1 and 6");
-	wrefresh(bottom);
+	msgbox = newwin(4, maxx, BY, 0);
+	mvwaddstr(msgbox, 0, 0, "press a number between 1 and 6");
+	wrefresh(msgbox);
 
 	while ((ch = getch()) != 'q') {
 		switch (ch) {
@@ -69,25 +64,23 @@ int main(void)
 
 			mgl_playturn(game, ch-1);
 			if (mgl_endgame(game) == MGL_GAME_END)
-				endofgame(game, bottom, user, enemy);
+				endofgame(game, msgbox, user, enemy);
 
-			wmove(bottom, 1, 0);
-			wclrtoeol(bottom);
+			wmove(msgbox, 1, 0);
+			wclrtoeol(msgbox);
 			break;
 		default:
-			mvwaddstr(bottom, 1, 0, "invalid selection. try again");
+			mvwaddstr(msgbox, 1, 0, "invalid selection. try again");
 			break;
 		}
 
-		mvwprintw(bottom, 3, 0, "turn at %s", game->user == 0 ? user : enemy);
-		wclrtoeol(bottom);
+		mvwprintw(msgbox, 3, 0, "turn at %s", game->user == 0 ? user : enemy);
+		wclrtoeol(msgbox);
 
 		/* and then redrawing of board window */
-		fillboard(lboard, game->board[1], game->board[0]);
-		fillboard(rboard, game->board[0], game->board[1]);
-		wrefresh(lboard);
-		wrefresh(rboard);
-		wrefresh(bottom);
+		fillboard(board, game->board[1], game->board[0]);
+		wrefresh(board);
+		wrefresh(msgbox);
 	}
 
 	endwin();

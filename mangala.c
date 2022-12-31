@@ -32,14 +32,11 @@ int main(void)
 	WINDOW *board;
 	WINDOW *msgbox;
 	int ch;
-	int maxx;
 
 	mgl_initgame(game);
 	initscr();
 	noecho();
 	curs_set(0);
-
-	maxx = getmaxx(stdscr);
 
 	refresh();
 
@@ -48,7 +45,7 @@ int main(void)
 	fillboard(board, game->board[1], game->board[0]);
 	wrefresh(board);
 
-	msgbox = newwin(4, maxx, BY, 0);
+	msgbox = newwin(4, getmaxx(stdscr), BY, 0);
 	mvwaddstr(msgbox, 0, 0, "press a number between 1 and 6");
 	wrefresh(msgbox);
 

@@ -28,7 +28,7 @@ endofgame(const struct mgl_game *game, WINDOW *win, const char *user, const char
 	mvwaddstr(win, 0, 0, "GAME OVER");
 	wclrtoeol(win);
 	mvwprintw(win, 1, 0, "WINNER: %s", winner);
-	wclrtoeol(win);
+	wclrtobot(win);
 }
 
 void

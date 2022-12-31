@@ -60,8 +60,6 @@ int main(void)
 			ch -= '0';
 
 			mgl_playturn(game, ch-1);
-			if (mgl_endgame(game) == MGL_GAME_END)
-				endofgame(game, msgbox, user, enemy);
 
 			wmove(msgbox, 1, 0);
 			wclrtoeol(msgbox);
@@ -73,6 +71,9 @@ int main(void)
 
 		mvwprintw(msgbox, 3, 0, "turn at %s", game->user == 0 ? user : enemy);
 		wclrtoeol(msgbox);
+
+		if (mgl_endgame(game) == MGL_GAME_END)
+			endofgame(game, msgbox, user, enemy);
 
 		/* and then redrawing of board window */
 		fillboard(board, game->board[1], game->board[0]);

@@ -21,7 +21,7 @@
 #include "board.h"
 
 void
-endofgame(struct mgl_game *game, WINDOW *win, const char *user, const char *enemy)
+endofgame(const struct mgl_game *game, WINDOW *win, const char *user, const char *enemy)
 {
 	const char *winner = game->board[0][6] > game->board[1][6] ? user : enemy;
 
@@ -32,7 +32,7 @@ endofgame(struct mgl_game *game, WINDOW *win, const char *user, const char *enem
 }
 
 void
-fillboard(WINDOW *win, int *up, int *bottom)
+fillboard(WINDOW *win, const int *up, const int *bottom)
 {
 	int i;
 

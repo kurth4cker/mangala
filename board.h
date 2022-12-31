@@ -5,10 +5,10 @@
 #include <mangala.h>
 
 /* print game finishing information to given WINDOW object. */
-void endofgame(struct mgl_game *, WINDOW *, const char *, const char *);
+void endofgame(const struct mgl_game *, WINDOW *, const char *, const char *);
 
 /* fill the WINDOW with given numbers */
-void fillboard(WINDOW *, int *, int *);
+void fillboard(WINDOW *, const int *, const int *);
 
 /* initialize the board
  * draws the board windows internal borders */

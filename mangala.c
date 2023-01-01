@@ -1,6 +1,6 @@
 /* mangala.c --- game related functions and main()
  *
- * Copyright 2022 kurth4cker
+ * Copyright 2022,2023 kurth4cker
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.

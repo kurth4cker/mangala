@@ -50,26 +50,30 @@ int main(void)
 	wrefresh(msgbox);
 
 	while ((ch = getch()) != 'q') {
-		switch (ch) {
-		case '1':
-		case '2':
-		case '3':
-		case '4':
-		case '5':
-		case '6':
-			ch -= '0';
+		if (game->user)
+			while (mgl_playturn(game, rand() % 6) != MGL_OK)
+				;
+		else
+			switch (ch) {
+			case '1':
+			case '2':
+			case '3':
+			case '4':
+			case '5':
+			case '6':
+				ch -= '0';
 
-			mgl_playturn(game, ch-1);
+				mgl_playturn(game, ch-1);
 
-			wmove(msgbox, 1, 0);
-			wclrtoeol(msgbox);
-			break;
-		default:
-			mvwaddstr(msgbox, 1, 0, "invalid selection. try again");
-			break;
-		}
+				wmove(msgbox, 1, 0);
+				wclrtoeol(msgbox);
+				break;
+			default:
+				mvwaddstr(msgbox, 1, 0, "invalid selection. try again");
+				break;
+			}
 
-		mvwprintw(msgbox, 3, 0, "turn at %s", game->user == 0 ? user : enemy);
+		mvwprintw(msgbox, 3, 0, "turn at %s", game->user ? enemy : user);
 		wclrtoeol(msgbox);
 
 		if (mgl_endgame(game) == MGL_GAME_END)

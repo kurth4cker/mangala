@@ -24,7 +24,7 @@
 #define BX 25
 #define BY 7
 
-int main(void)
+int main()
 {
 	const char *user = getenv("USER");
 	const char *enemy = "ENEMY";

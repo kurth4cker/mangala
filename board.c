@@ -1,6 +1,6 @@
 /* board.c --- ncurses related functions
  *
- * Copyright 2022 kurth4cker
+ * Copyright 2022,2023 kurth4cker
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +20,7 @@
 
 #include "board.h"
 
-void
-endofgame(const struct mgl_game *game, WINDOW *win, const char *user, const char *enemy)
+void endofgame(const struct mgl_game *game, WINDOW *win, const char *user, const char *enemy)
 {
 	const char *winner = game->board[0][6] > game->board[1][6] ? user : enemy;
 
@@ -31,12 +30,9 @@ endofgame(const struct mgl_game *game, WINDOW *win, const char *user, const char
 	wclrtobot(win);
 }
 
-void
-fillboard(WINDOW *win, const int *up, const int *bottom)
+void fillboard(WINDOW *win, const int *up, const int *bottom)
 {
-	int i;
-
-	for (i = 0; i < 6; i++) {
+	for (int i = 0; i < 6; i++) {
 		mvwprintw(win, 5, 3 * i + 4, "%2d", bottom[i]);
 		mvwprintw(win, 1, 23 - (3 * i + 4), "%2d", up[i]);
 	}
@@ -45,14 +41,11 @@ fillboard(WINDOW *win, const int *up, const int *bottom)
 	mvwprintw(win, 3, 22, "%2d", bottom[6]);
 }
 
-void
-initboard(WINDOW *win)
+void initboard(WINDOW *win)
 {
-	int i;
-
 	box(win, 0, 0);
 
-	for (i = 3; i < 24; i += 3) {
+	for (int i = 3; i < 24; i += 3) {
 		mvwaddch(win, 0, i, ACS_TTEE);
 		mvwaddch(win, 1, i, ACS_VLINE);
 		mvwaddch(win, 2, i, ACS_BTEE);
@@ -61,7 +54,7 @@ initboard(WINDOW *win)
 		mvwaddch(win, 6, i, ACS_BTEE);
 	}
 
-	for (i = 4; i < 21; i += 3) {
+	for (int i = 4; i < 21; i += 3) {
 		mvwaddch(win, 2, i, ACS_HLINE);
 		waddch(win, ACS_HLINE);
 		mvwaddch(win, 4, i, ACS_HLINE);
@@ -71,7 +64,7 @@ initboard(WINDOW *win)
 	mvwaddch(win, 3, 3, ACS_VLINE);
 	mvwaddch(win, 3, 21, ACS_VLINE);
 
-	for (i = 2; i < 6; i += 2) {
+	for (int i = 2; i < 6; i += 2) {
 		mvwaddch(win, i, 3, ACS_LTEE);
 		mvwaddch(win, i, 21, ACS_RTEE);
 	}

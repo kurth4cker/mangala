@@ -1,4 +1,4 @@
-/* mangala.c --- game related functions and main()
+/* mangala.c --- complete mangala game implementation using libmangala
  *
  * Copyright 2022,2023 kurth4cker
  *
@@ -15,7 +15,11 @@
  * limitations under the License.
  */
 
+#define _POSIX_C_SOURCE 200809L
+
+#include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <ncurses.h>
 #include <mangala.h>
 
@@ -24,7 +28,7 @@
 #define BX 25
 #define BY 7
 
-int main()
+int main(int argc, char **argv)
 {
 	const char *user = getenv("USER");
 	const char *enemy = "ENEMY";
@@ -32,6 +36,22 @@ int main()
 	WINDOW *board;
 	WINDOW *msgbox;
 	int ch;
+
+	while ((ch = getopt(argc, argv, "u:e:hv")) != -1)
+		switch (ch) {
+			case 'u':
+				user = optarg;
+				break;
+			case 'e':
+				enemy = optarg;
+				break;
+			case 'h':
+				puts("see mangala(1)");
+				return 0;
+			case 'v':
+				puts(PACKAGE_STRING);
+				return 0;
+		}
 
 	mgl_initgame(game);
 	initscr();

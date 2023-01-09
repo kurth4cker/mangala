@@ -39,18 +39,20 @@ int main(int argc, char **argv)
 
 	while ((ch = getopt(argc, argv, "u:e:hv")) != -1)
 		switch (ch) {
-			case 'u':
-				user = optarg;
-				break;
-			case 'e':
-				enemy = optarg;
-				break;
-			case 'h':
-				puts("see mangala(1)");
-				return 0;
-			case 'v':
-				puts(PACKAGE_STRING);
-				return 0;
+		case 'u':
+			user = optarg;
+			break;
+		case 'e':
+			enemy = optarg;
+			break;
+		case 'h':
+			puts("see mangala(1)");
+			return 0;
+		case 'v':
+			puts(PACKAGE_STRING);
+			return 0;
+		case '?':
+			return 1;
 		}
 
 	mgl_initgame(game);
